@@ -29,17 +29,17 @@ This is a summary of best practices that we've been using when creating and oper
 
 ### Be Simple to enable Complexity
 
-    - your container/process must be as simple as possible. A complex system will emerge from well made container units working together through their network interfaces
-    - the more complex your container, the simpler the system you will manage to run sanely (or else get into a hole of madness with wires everywhere)
+   - your container/process must be as simple as possible. A complex system will emerge from well made container units working together through their network interfaces
+   - the more complex your container, the simpler the system you will manage to run sanely (or else get into a hole of madness with wires everywhere)
 
 ### Disposable like Trash
 
-    - try as hard as you can to give the sensation that your container may be deleted at any time and another may be run and continue the job anywhere, even for Stateful scenarios (explain Ceph example)
-    - your container instance should never be backed up or copied to anywhere. It is trash!
+   - try as hard as you can to give the sensation that your container may be deleted at any time and another may be run and continue the job anywhere, even for Stateful scenarios (explain Ceph example)
+   - your container instance should never be backed up or copied to anywhere. It is trash!
 
 ### Logs must be streamed only to the stdout/stderr
 
-     - Probably the usage of logs will be performed outside your container. Leave the heavy lifting of storing, querying, removing, understanding and using to someone else, specialized on this matters.
+   - Probably the usage of logs will be performed outside your container. Leave the heavy lifting of storing, querying, removing, understanding and using to someone else, specialized on this matters.
 
 ### One Git Repo per Container
 
