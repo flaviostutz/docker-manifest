@@ -5,16 +5,22 @@ This is a summary of best practices that we've been using when creating and oper
 
    - a container is a “thing” to the person using it, not two or three things. Keep that way.
    - avoid commands per role, avoid two processes in the same container, avoid ENVs that change role
+   - **Example:** Have separate containers for "API Gateway" and "My Application". Even if both use NodeJS, keep them separated, because they have different roles, different resource needs, and may even evolve to use different languages in the future.
 
 ### Container as Decontamination Zone
 
    - clear UX pitfalls from original product, create a simple language
+   - use ENV variables as your friend. Avoid complex relationships between them
+   - **Example:** https://github.com/flaviostutz/ceph-osd. ENV OSD_EXT4_SUPPORT=true makes Ceph OSDs work with ext4 filesystems for testing purposes. In this case, I discovered that I needed to use "osd max object name len = 256" on ceph.conf to avoid names with more than 256 chars (imagine how I discovered that!). A regular user doesn't need to know that to make a simple demo on his own notebook. He only needs a OSD_EXT4_SUPPORT...
 
 ### Fight configuration entropy
 
    - reduce configuration options, aim clear useful deployment scenarios
-   - mounting a config file as a volume is a great sin
+   - mounting a config file as a volume is a great sin. You lose versioning and testing during *build*.
    - ENV parameters must be documented and employ simple parameters. Use sed and other transformations at container startup to prepare the internal configuration according to the ENVs. Hide the mess from deployer.
+   - if you end up having too much ENV parameters with complex relationships, maybe the best is to have the container extended (FROM mycontainer) and use the file configurations directly by adding them inside your container. The configuration will be versioned in your repository and built into the container image.
+   - Complex configurations need development and testing during *build* phase, not during *run* phase!
+   - **Example:** 
 
 ### Deployable Readme
 
