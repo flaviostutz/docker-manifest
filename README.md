@@ -77,4 +77,15 @@ This is a summary of best practices that we've been using when creating and oper
      - https://github.com/flaviostutz/schelly-restic - webhook bridge that receives calls from Schelly server for performing backups with Restic
      - https://github.com/flaviostutz/schelly-backy2 - webhook bridge that receives calls from Schelly server for performing backups with Backy2
      
+### One Git Repo per Runtime Environment
+
+   - Use a Git repository for each runtime environment of the microservice. Place there all artifacts that are part of the configuration for that specific deployment. 
+   - Reference in this repo only container images that were already built on another step (with explicit tag name on container image name). Dockerfile will be present in another repo.
+   - If you have, for example, three deployments of the same application (dev, staging, prod), each deployment must have an specific Git repo with a docker-compose.yml.
+   - Example:
+       schelly-company1-aws/docker-compose.yml
+       schelly-company1-azure/docker-compose.yml
+       schelly-company2-tests/docker-compose.yml
+       schelly-company2-dev/docker-compose.yml
+   
    
